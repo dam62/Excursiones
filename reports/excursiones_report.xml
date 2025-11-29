@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+
+        <!-- =============================== -->
+        <!-- REPORTE EXCURSIONES -->
+        <!-- =============================== -->
+        <record id="action_report_excursion" model="ir.actions.report">
+            <field name="name">Informe de Excursiones</field>
+            <field name="model">excursiones.excursion</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">excursiones.excursiones_report</field>
+            <field name="binding_model_id" ref="model_excursiones_excursion"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- =============================== -->
+        <!-- PLANTILLA QWEB PARA REPORTE -->
+        <!-- =============================== -->
+        <template id="excursiones_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="ex">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2>Excursión: <t t-esc="ex.nombre_excursion or '---'"/></h2>
+                            <table class="table table-sm table-bordered" style="width:100%; margin-bottom:20px;">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Descripción</th>
+                                        <th>Lugar de Encuentro</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <!-- Fecha y descripción -->
+                                        <td><t t-esc="ex.fecha_excursion or '---'"/></td>
+                                        <td><t t-esc="ex.descripcion_excursion or '---'"/></td>
+                                        <td><t t-esc="ex.lugar_encuentro or '---'"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
